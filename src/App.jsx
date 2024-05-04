@@ -10,9 +10,27 @@ import Users from "./pages/Users"
 import Account from "./pages/Account"
 import GlobalStyles from "./styles/GlobalStyles"
 import AppLayout from "./ui/AppLayout"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+
+//this sets up the client for the app 
+const queryClient = new QueryClient({
+defaultOptions:{ 
+ queries:{
+  // staleTime: 10 * 1000, //amount of time that the data will stay valid in the cash 
+  staleTime: 0 
+ }
+
+},
+})
+
+
 function App() {
+
+
   return (
-    <>
+<QueryClientProvider client={queryClient}>
+  <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
   <GlobalStyles></GlobalStyles>
   <BrowserRouter>
   <Routes>
@@ -29,9 +47,9 @@ function App() {
     <Route path="*" element={<PageNotFound/>}  />
   </Routes>
   </BrowserRouter>
-  
-    </>
+  </QueryClientProvider>
   )
 }
 
 export default App
+ 

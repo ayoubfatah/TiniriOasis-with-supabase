@@ -7,7 +7,7 @@ import { HiHomeModern } from "react-icons/hi2";
 import { HiMiniCog8Tooth } from "react-icons/hi2";
 import { HiOutlineCalendarDays } from "react-icons/hi2";
 import { HiMiniUsers } from "react-icons/hi2";
-
+import supabase from "../services/supabase"
 
 const NavList = styled.ul`
   margin-top: 3rem;
@@ -53,8 +53,8 @@ const StyledNavLink = styled(NavLink)`
     color: var(--color-brand-600);
   }
 `;
-console.log(  NavList);
 
+ console.log(supabase);
 
 export default function MainNav() {
   return (

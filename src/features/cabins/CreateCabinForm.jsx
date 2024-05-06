@@ -5,6 +5,10 @@ import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
+import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { addCabin } from "../../services/apiCabins";
 
 const FormRow = styled.div`
   display: grid;
@@ -43,36 +47,74 @@ const Error = styled.span`
 `;
 
 function CreateCabinForm() {
+  
+  const{register , handleSubmit , reset , getValues , formState} = useForm()
+  
+   const {errors} = formState;
+   const queryClient = useQueryClient()
+
+
+   const {mutate , isLoading:isInserting}=  useMutation({
+    mutationFn : (obj)=> addCabin(obj),
+    onSuccess : ()=>{
+      toast.success("New cabin has been successfully  created ")
+      queryClient.invalidateQueries({queryKey: ["cabins"]});
+      reset();
+    },
+    onError: (err)=> toast.error(err.message)
+  })
+
+  function onSubmit(obj){
+   mutate({...obj , image :obj.image[0] });
+  } 
+
+function onError(error){
+  // console.log(error);
+  toast.error("please make sure to fill the form " )
+}
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(onSubmit , onError)}>
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
-        <Input type="text" id="name" />
+        <Input disabled={isInserting} type="text" id="name"   {...register("name" ,{required : "cabin's name is required"})} />
+        <Error>{errors?.name?.message}</Error>
       </FormRow>
 
       <FormRow>
         <Label htmlFor="maxCapacity">Maximum capacity</Label>
-        <Input type="number" id="maxCapacity" />
+        <Input disabled={isInserting} type="number" id="maxCapacity"  {...register("maxCapacity" , {required : "capacity value is required" , min:{value: 1 , message: "capacity should be at least 1 "}}  )} />
+         {errors?.maxCapacity?.message && <Error>{errors?.maxCapacity?.message}</Error> }
+
       </FormRow>
 
       <FormRow>
         <Label htmlFor="regularPrice">Regular price</Label>
-        <Input type="number" id="regularPrice" />
+        <Input disabled={isInserting} type="number" id="regularPrice"  {...register("regularPrice",{required : "the price is required" ,min:{value: 99 , message: "price should be at least 99$ "}})} />
+        {errors?.regularPrice?.message &&  <Error>{errors?.regularPrice?.message}</Error>}
+        
       </FormRow>
 
       <FormRow>
         <Label htmlFor="discount">Discount</Label>
-        <Input type="number" id="discount" defaultValue={0} />
+        <Input  disabled={isInserting} type="number" id="discount" defaultValue={0}  {...register("discount", {required: "Set a discount",
+        validate: (value) => +value <= getValues().regularPrice || "Discount shouldn't be bigger than the regular price"
+  })} />
+        {errors?.discount?.message &&  <Error>{errors?.discount?.message}</Error> }
+
       </FormRow>
 
       <FormRow>
         <Label htmlFor="description">Description for website</Label>
-        <Textarea type="number" id="description" defaultValue="" />
+        <Textarea disabled={isInserting} type="number" id="description" defaultValue=""  {...register("description", {required : "this field is required"})} />
+        {errors?.description?.message &&  <Error>{errors?.description?.message}</Error> }
+
       </FormRow>
 
       <FormRow>
         <Label htmlFor="image">Cabin photo</Label>
-        <FileInput id="image" accept="image/*" />
+        <FileInput type="file" disabled={isInserting} id="image" accept="image/*" {...register("image"  , {required : "this field is required"})} />
+        {errors?.image?.message &&  <Error>{errors?.image?.message}</Error> }
+
       </FormRow>
 
       <FormRow>
@@ -80,7 +122,7 @@ function CreateCabinForm() {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button>Edit cabin</Button>
+        <Button disabled={isInserting}>Add cabin</Button>
       </FormRow>
     </Form>
   );

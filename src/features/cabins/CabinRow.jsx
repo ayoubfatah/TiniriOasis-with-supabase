@@ -4,6 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabin } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import EditCabinsForm from "./EditCabinsForm";
 
 
 const TableRow = styled.div`
@@ -47,9 +49,9 @@ const Discount = styled.div`
 
 export default function CabinRow({cabin}) {
   const { cabinId, created_at, description, discount, image, maxCapacity, name, regularPrice } = cabin;
-
-
-
+    //temp
+  const [showEdit , setShowEdit] = useState(false)
+  
   const queryClient = useQueryClient()
   const {isLoading:isDeleting , mutate} = useMutation({
     mutationFn: (cabinId)=>deleteCabin(cabinId),
@@ -70,8 +72,12 @@ export default function CabinRow({cabin}) {
     <span>fits up to {maxCapacity} guests</span>
     <Price>{formatCurrency(regularPrice)} </Price>
     <Discount>{formatCurrency(discount)} </Discount>
+    <div>
+    <button onClick={()=> setShowEdit(e => !e) } >Edit</button>
     <button onClick={()=>mutate(cabinId) } disabled={isDeleting}>Delete</button>
+    </div>
    </TableRow>
+   {showEdit && <EditCabinsForm  cabinDefaultValues={cabin} />}
     </>
   )
 }

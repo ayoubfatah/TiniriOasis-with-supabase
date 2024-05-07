@@ -24,9 +24,9 @@ const { data, error } = await supabase.from('cabins').select('*')
 
 
 export async function addCabin(cabinObj){
-
-   const imageName = `${Math.random()}-${cabinObj.image.name}`.replaceAll("/" , "") // so supabase wont create folders cause if there is a / in the name it will create a folder
-   const imagePath = `https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/cabin-images/${imageName}`
+   console.log(cabinObj);
+   const imageName = `${Math.random()}-${cabinObj.image.name}`?.replaceAll("/" , "") // so supabase wont create folders cause if there is a / in the name it will create a folder
+   const imagePath = cabinObj.image?.startsWith?.("https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/cabin-images/") ? cabinObj.image : `https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/cabin-images/${imageName}`
       // https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg
    // 1 first creating the cabin
          const { data, error } = await supabase
@@ -39,6 +39,8 @@ export async function addCabin(cabinObj){
             throw new Error("cabins couldn't be added")
          }   
    // 2 Upload the image 
+   console.log(cabinObj.image?.startsWith?.("https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/cabin-images/"));
+if(cabinObj.image?.startsWith?.("https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/cabin-images/"))return
        const { error: storageError } = await supabase.storage
        .from ( 'cabin-images')
       .upload(imageName , cabinObj.image )

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {getCabins} from "../../services/apiCabins"
 import Spinner from "../../ui/Spinner";
 import CabinRow from "../../features/cabins/CabinRow"
+import useCabins from "./useCabins";
 
 
 const Table = styled.div`
@@ -34,10 +35,7 @@ const TableHeader = styled.header`
 
 export default function CabinTable() {
 
-   const {isLoading , data : cabinData, error } =  useQuery({
-     queryKey:["cabins"],   // this will uniquely identify the data that we will query 
-    queryFn:getCabins    //function that is responsible for fetching (function should return a promise)
-     })
+  const {isLoading , cabinData }  = useCabins()
   if(isLoading) return <Spinner/>
 
   return (

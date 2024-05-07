@@ -1,4 +1,3 @@
-import React from 'react'
 import { getCabins } from '../../services/apiCabins'
 import { useQuery } from '@tanstack/react-query'
 

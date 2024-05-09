@@ -6,9 +6,7 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { addCabin } from "../../services/apiCabins";
 import useCreateCabin from "./useCreatCabin";
 
 const FormRow = styled.div`
@@ -47,7 +45,7 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-function CreateCabinForm() {
+function CreateCabinForm({onClose}) {
   
   const{register , handleSubmit , reset , getValues , formState} = useForm()
   
@@ -56,7 +54,11 @@ function CreateCabinForm() {
    const {isInserting , mutate} = useCreateCabin()
 
   function onSubmit(obj){
-   mutate({...obj , image :obj.image[0] } ,  {onSuccess: ()=> reset() }  );
+    mutate({...obj , image :obj.image[0] } , 
+  {onSuccess: ()=> {
+      reset()
+      onClose?.()
+  } }  );
   } 
 
 function onError(error){
@@ -64,7 +66,7 @@ function onError(error){
   toast.error("please make sure to fill the form " )
 }
   return (
-    <Form onSubmit={handleSubmit(onSubmit , onError)}>
+    <Form onSubmit={handleSubmit(onSubmit , onError)} type={onClose ? "modal": "regular"}>
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
         <Input disabled={isInserting} type="text" id="name"   {...register("name" ,{required : "cabin's name is required"})} />
@@ -110,7 +112,7 @@ function onError(error){
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button onClick={()=> onClose?.()} variation="secondary" type="reset">
           Cancel
         </Button>
         <Button disabled={isInserting}>Add cabin</Button>

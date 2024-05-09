@@ -6,9 +6,7 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { addCabin, editCabin } from "../../services/apiCabins";
 import useEditCabin from "./useEditCabin";
 
 const FormRow = styled.div`
@@ -68,7 +66,7 @@ function onError(){
   toast.error("please make sure to fill the form " )
 }
   return (
-    <Form onSubmit={handleSubmit(onSubmit , onError)}>
+    <Form onSubmit={handleSubmit(onSubmit , onError)} type="regular">
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
         <Input disabled={isEditing} type="text" id="name"   {...register("name" ,{required : "cabin's name is required"})} />

@@ -1,14 +1,10 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins";
-import Spinner from "../../ui/Spinner";
-import toast from "react-hot-toast";
 import { useState } from "react";
-import EditCabinsForm from "./EditCabinsForm";
 import useDeleteCabin from "./useDeleteCabin";
 import { HiMiniPencilSquare, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import useCreateCabin from "./useCreatCabin";
+import EditCabin from "./EditCabin";
 
 
 const TableRow = styled.div`
@@ -91,7 +87,8 @@ export default function CabinRow({cabin}) {
     <button onClick={()=>deleteCabinFun(cabinId) } disabled={isDeleting}><HiTrash /></button>
     </ButtonContainer>
    </TableRow>
-   {showEdit && <EditCabinsForm  cabinDefaultValues={cabin} />}
+   {/* {showEdit && <EditCabinsForm  cabinDefaultValues={cabin} />} */}
+   {showEdit && <EditCabin  cabinDefaultValues={cabin} />}
     </>
   )
 }

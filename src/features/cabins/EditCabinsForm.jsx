@@ -45,8 +45,8 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-function EditCabinsForm({ cabinDefaultValues = {} }) {
-
+function EditCabinsForm({ cabinDefaultValues = {}  , onClose}) {
+   
   const{register , handleSubmit , reset , getValues , formState} = useForm(
     {defaultValues: cabinDefaultValues
     }
@@ -56,9 +56,14 @@ function EditCabinsForm({ cabinDefaultValues = {} }) {
    const {mutate , isEditing } = useEditCabin()
 
   function onSubmit(obj){
+   
   const imageType = typeof obj.image === "string" ? obj.image : obj.image[0]
     console.log(obj);
-    mutate({newCabinData:{...obj , image : imageType} , id: obj.cabinId} , {onSuccess: ()=> reset() })
+    mutate({newCabinData:{...obj , image : imageType} , id: obj.cabinId} , {onSuccess: ()=> {
+      reset() 
+      onClose?.()
+    }
+  })
   } 
 
 function onError(){
@@ -66,7 +71,7 @@ function onError(){
   toast.error("please make sure to fill the form " )
 }
   return (
-    <Form onSubmit={handleSubmit(onSubmit , onError)} type="regular">
+    <Form onSubmit={handleSubmit(onSubmit , onError)}  type={onClose ? "modal": "regular"} >
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
         <Input disabled={isEditing} type="text" id="name"   {...register("name" ,{required : "cabin's name is required"})} />
@@ -112,7 +117,7 @@ function onError(){
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button onClick={onClose} variation="secondary" type="reset">
           Cancel
         </Button>
         <Button disabled={isEditing}>Edit cabin</Button>

@@ -46,7 +46,7 @@ const Error = styled.span`
 `;
 
 function EditCabinsForm({ cabinDefaultValues = {}  , onClose}) {
-   
+   console.log(cabinDefaultValues);
   const{register , handleSubmit , reset , getValues , formState} = useForm(
     {defaultValues: cabinDefaultValues
     }

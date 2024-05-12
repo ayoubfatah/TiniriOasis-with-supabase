@@ -7,6 +7,7 @@ import useCreateCabin from "./useCreatCabin";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import EditCabinsForm from "./EditCabinsForm";
 import Modal from "../../ui/Modal";
+import Table from "../../ui/Table";
 
 const TableIcons = styled.button`
     border: none;
@@ -17,7 +18,7 @@ const TableIcons = styled.button`
     gap:6px
 `;
 
-
+/* 
 const TableRow = styled.div`
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -28,7 +29,7 @@ const TableRow = styled.div`
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
   }
-`;
+`; */
 
 const Img = styled.img`
   display: block;
@@ -57,14 +58,6 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 const ButtonContainer = styled.div`
-width:fit-content;
-padding: 1.2rem 2rem;
-
-display: flex;
-flex-direction: row;
-align-items: baseline;
-gap: 2rem;
-border-radius: 5px;
 
 ;
 `
@@ -92,7 +85,7 @@ export default function CabinRow({cabin}) {
  
   return (
     <>
-    <TableRow role="row">
+    <Table.Row>
     <Img src={image}/>
     <Cabin>{name}</Cabin>
     <span>fits up to {maxCapacity} guests</span>
@@ -120,7 +113,7 @@ export default function CabinRow({cabin}) {
     </Modal.Window>
 </Modal>
     </ButtonContainer>
-   </TableRow>
+   </Table.Row>
    
     </>
   )

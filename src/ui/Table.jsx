@@ -93,10 +93,13 @@ function Row({children}){
   </StyledRow>
 
 }
-function Body({children}){
-  return {children}
-
+function Body({ data , render}){
+  if(!data.length) return <p>There is no data to show here</p>
+  return <StyledBody>
+          {data.map(render)}
+        </StyledBody>  
 }
+
 
 Table.Row = Row
 Table.Body = Body

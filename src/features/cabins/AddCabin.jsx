@@ -19,7 +19,6 @@ export default function AddCabin(){
       <Modal.Window name={"cabin-form"}>
         <CreateCabinForm  />
       </Modal.Window>
-  {/*  */}
     </Modal>
   )
 }

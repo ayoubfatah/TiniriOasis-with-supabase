@@ -5,6 +5,7 @@ import Spinner from "../../ui/Spinner";
 import CabinRow from "../../features/cabins/CabinRow"
 import useCabins from "./useCabins";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
 
 
@@ -34,7 +35,8 @@ export default function CabinTable() {
   if(isLoading) return <Spinner/>
 
   return (
-    <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+    <Menus>
+    <Table columns="0.6fr 1.8fr 1fr 1fr 1fr 1fr"> 
       <Table.Header role="row ">
         <div></div>
         <div>Cabin</div>
@@ -43,9 +45,8 @@ export default function CabinTable() {
         <div>Discount</div>
         <div></div>
       </Table.Header>
-
        {cabinData.map(cabin => <CabinRow cabin={cabin} key={cabin.cabinId}  />)}
-
     </Table>
+    </Menus>
   )
 }

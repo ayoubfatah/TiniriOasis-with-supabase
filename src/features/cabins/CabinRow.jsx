@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { useState } from "react";
+
 import useDeleteCabin from "./useDeleteCabin";
 import { HiMiniEllipsisVertical, HiMiniPencilSquare, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import useCreateCabin from "./useCreatCabin";
@@ -8,6 +8,8 @@ import ConfirmDelete from "../../ui/ConfirmDelete";
 import EditCabinsForm from "./EditCabinsForm";
 import Modal from "../../ui/Modal";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
+import { useState } from "react";
 
 const TableIcons = styled.button`
     border: none;
@@ -57,32 +59,45 @@ const Discount = styled.div`
   font-weight: 500;
   color: var(--color-green-700);
 `;
-const ButtonContainer = styled.div`
 
-;
-`
 
 export default function CabinRow({cabin}) {
   const { cabinId, created_at, description, discount, image, maxCapacity, name, regularPrice } = cabin;
+
     //temp
-  const [showEdit , setShowEdit] = useState(false)
   const{isDeleting , mutate: deleteCabinFun} = useDeleteCabin()
   const {mutate: duplicateCabinFun , isInserting}  = useCreateCabin()
+  const [timeoutId, setTimeoutId] = useState(null);
+   console.log(timeoutId, "timeOut id ");
+  function handleDuplicate() {
+    // Cancel any pending duplicate operation
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
 
-  function handleDuplicate(){
- duplicateCabinFun({
-  cabinId: Math.floor(Math.random()*10000),
-  name: `Copy of ${name}`,
-  created_at ,
-  maxCapacity,
-  regularPrice,
-  discount,
-  image,
-  description,
-  
- })
-  } 
- 
+    // Schedule the duplicate operation
+    const newTimeoutId = setTimeout(() => {
+
+      // Perform duplicate cabin function
+      duplicateCabinFun({
+        cabinId: Math.floor(Math.random() * 10000),
+        name: `Copy of ${name}`,
+        created_at,
+        maxCapacity,
+        regularPrice,
+        discount,
+        image,
+        description,
+      });
+    }, 500); 
+    // Update the timeout ID
+    setTimeoutId(newTimeoutId);
+
+
+    // Disable the button
+
+  }
+
   return (
     <>
     <Table.Row>
@@ -91,30 +106,30 @@ export default function CabinRow({cabin}) {
     <span>fits up to {maxCapacity} guests</span>
     <Price>{formatCurrency(regularPrice)} </Price>
     <Discount>{formatCurrency(discount)} </Discount>
-    <ButtonContainer>
-
-    <TableIcons className="duplicating"  disabled={isInserting} onClick={handleDuplicate} ><HiSquare2Stack/> <span>Duplicate</span> </TableIcons>
+    <div>
     <Modal>
-      {/* edit */}
+    <Menus.Menu>
+  <Menus.Toggle id={cabinId} />
+    <Menus.List id={cabinId} >
+    <Menus.Button onClick={handleDuplicate} icon={<HiSquare2Stack/>}>Duplicate</Menus.Button>
     <Modal.Open opens={"edit-form"}>
-    <TableIcons><HiMiniPencilSquare /> <span>Edit</span> </TableIcons>
+    <Menus.Button icon={<HiMiniPencilSquare/>} > Edit</Menus.Button>
       </Modal.Open>
+    <Modal.Open opens={"delete-form"}>
+    <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+      </Modal.Open>
+    </Menus.List>
     <Modal.Window name={"edit-form"}>
       <EditCabinsForm cabinDefaultValues={cabin}  />
     </Modal.Window>
-   </Modal>
-   {/* delete */}
-<Modal>
-    <Modal.Open opens={"delete-form"}>
-    <TableIcons  disabled={isDeleting}><HiTrash /><span>Delete</span>  </TableIcons>
-      </Modal.Open>
     <Modal.Window name={"delete-form"}>
     <ConfirmDelete resourceName={"Cabin"} disabled={isDeleting}  onConfirm={()=>deleteCabinFun(cabinId)}  />
     </Modal.Window>
-</Modal>
-    </ButtonContainer>
+    </Menus.Menu>
+    </Modal>
+    </div>
    </Table.Row>
-   
-    </>
+   </>
+    
   )
 }

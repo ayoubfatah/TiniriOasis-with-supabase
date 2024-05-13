@@ -12,6 +12,12 @@
 */
 
 /* Colors adapted from https://tailwindcss.com/docs/customizing-colors */
+.zeb{
+  overflow:hidden;
+}
+
+
+
 
 :root {
   /* Indigo */
@@ -78,7 +84,9 @@
   /* Creating animations for dark mode */
   transition: background-color 0.3s, border 0.3s;
 }
-
+body{
+ list-style: none !important;
+}
 html {
   font-size: 62.5%;
 }

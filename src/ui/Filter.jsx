@@ -44,10 +44,10 @@ export default function Filter({name , options}) {
      searchParams.set(name, value)
      setSearchParams(searchParams)
     }
-  console.log(options);
+
   return (
      <StyledFilter>
-     {options.map( option =>  <FilterButton active={filterValue === option.value } key={options.value} onClick={()=>handleClick(option.value)}>{option.name}</FilterButton>)}
+     {options.map( option =>  <FilterButton active={filterValue === option.value } disabled={filterValue === option.value} key={options.value} onClick={()=>handleClick(option.value)}>{option.name}</FilterButton>)}
      </StyledFilter>
   )
 }

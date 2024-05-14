@@ -67,8 +67,8 @@ export default function CabinRow({cabin}) {
     //temp
   const{isDeleting , mutate: deleteCabinFun} = useDeleteCabin()
   const {mutate: duplicateCabinFun , isInserting}  = useCreateCabin()
+  
   const [timeoutId, setTimeoutId] = useState(null);
-   console.log(timeoutId, "timeOut id ");
   function handleDuplicate() {
     // Cancel any pending duplicate operation
     if (timeoutId) {
@@ -92,8 +92,6 @@ export default function CabinRow({cabin}) {
     }, 500); 
     // Update the timeout ID
     setTimeoutId(newTimeoutId);
-
-
     // Disable the button
 
   }

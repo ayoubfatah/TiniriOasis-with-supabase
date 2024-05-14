@@ -36,17 +36,18 @@ const FilterButton = styled.button`
 `
 
 
-export default function Filter() {
+export default function Filter({name , options}) {
   const  [searchParams, setSearchParams] = useSearchParams();
+  const filterValue = searchParams.get("discount") || options.at(0).value
+
     function handleClick(value){
-     searchParams.set("discount", value)
+     searchParams.set(name, value)
      setSearchParams(searchParams)
     }
+  console.log(options);
   return (
      <StyledFilter>
-      <FilterButton onClick={()=>handleClick("all")}>All Cabins</FilterButton>
-      <FilterButton  onClick={()=>handleClick("no-discount")}  >No discount</FilterButton>
-      <FilterButton   onClick={()=>handleClick("with-discount")}> With discount</FilterButton>
+     {options.map( option =>  <FilterButton active={filterValue === option.value } key={options.value} onClick={()=>handleClick(option.value)}>{option.name}</FilterButton>)}
      </StyledFilter>
   )
 }

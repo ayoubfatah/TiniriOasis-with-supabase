@@ -41,10 +41,10 @@ export default function CabinTable() {
 
   let filterCabins = [];
   if(filterValue === "with-discount") {
-    filterCabins = cabinData?.filter(cabin=> cabin.discount )
+    filterCabins = cabinData?.filter(cabin=> cabin.discount > 0 )
   }
   if(filterValue === "no-discount"){
-  filterCabins = cabinData?.filter(cabin=> cabin.discount > 0)
+  filterCabins = cabinData?.filter(cabin=> cabin.discount === 0)
   }
   if(filterValue === "all") {
     filterCabins = cabinData

@@ -9,6 +9,7 @@ import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
 import Cabins from "../../pages/Cabins";
 import Empty from "../../ui/Empty";
+import Pagination from "../../ui/Pagination";
 
 
 
@@ -74,6 +75,9 @@ export default function CabinTable() {
         <div></div>
       </Table.Header>
       <Table.Body data={sortedCabin} render={(cabin => <CabinRow cabin={cabin} key={cabin.cabinId}  />)} />
+      <Table.Footer>
+          <Pagination count={11} />
+        </Table.Footer>
     </Table>
     </Menus>
   )

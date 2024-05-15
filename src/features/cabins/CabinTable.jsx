@@ -34,7 +34,7 @@ const TableHeader = styled.header`
 
 export default function CabinTable() {
 
-  const {isLoading , cabinData }  = useCabins()
+  const {isLoading , cabinData  , count}  = useCabins()
   const [searchParams] = useSearchParams()
 
 // 1) filter
@@ -76,7 +76,7 @@ export default function CabinTable() {
       </Table.Header>
       <Table.Body data={sortedCabin} render={(cabin => <CabinRow cabin={cabin} key={cabin.cabinId}  />)} />
       <Table.Footer>
-          <Pagination count={11} />
+          <Pagination count={count} />
         </Table.Footer>
     </Table>
     </Menus>

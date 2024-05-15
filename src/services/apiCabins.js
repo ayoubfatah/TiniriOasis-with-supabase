@@ -2,7 +2,7 @@ import { PAGE_SIZE } from "../utils/const";
 import supabase from "./supabase";
 
 export async function getCabins({page}) {
-   let query = supabase.from('cabins').select('*');
+   let query = supabase.from('cabins').select('*' , {count: "exact"});
  
 
    if(page){
@@ -11,14 +11,14 @@ export async function getCabins({page}) {
       query = query.range(from, to)
     }
 
-    
-   const { data, error } = await query;
+
+   const { data, error ,count} = await query;
    if (error) {
      console.error(error);
      throw new Error("Cabins couldn't be loaded");
    }
 
-   return data;
+   return {data , count};
  }
 
 

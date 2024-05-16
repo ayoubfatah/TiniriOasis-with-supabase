@@ -3,9 +3,12 @@ import { format, isToday } from "date-fns";
 
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
-
+import Modal from "../../ui/Modal";
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
+import Menus from "../../ui/Menus";
+import { HiArrowDownOnSquare, HiEye, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -53,8 +56,9 @@ function BookingRow({
     "checked-in": "green",
     "checked-out": "silver",
   };
-
+ const navigate = useNavigate()
   return (
+
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
 
@@ -79,7 +83,21 @@ function BookingRow({
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
+    <Modal>
+
+    <Menus.Menu>
+    <Menus.Toggle  id={bookingId}/>
+     <Menus.List id={bookingId}>
+     <Menus.Button icon={<HiEye />} onClick={()=> navigate(`/bookings/${bookingId}`)} >See details</Menus.Button>
+     <Menus.Button icon={<HiArrowDownOnSquare/>}>Check in</Menus.Button>
+     <Menus.Button icon={<HiTrash/>}>Delete Booking </Menus.Button>
+     </Menus.List>
+
+     </Menus.Menu>
+     </Modal>
+
     </Table.Row>
+
   );
 }
 

@@ -106,24 +106,37 @@ export default function CabinRow({cabin}) {
     <Discount>{formatCurrency(discount)} </Discount>
     <div>
     <Modal>
+
     <Menus.Menu>
+
   <Menus.Toggle id={cabinId} />
+
     <Menus.List id={cabinId} >
     <Menus.Button onClick={handleDuplicate} icon={<HiSquare2Stack/>}>Duplicate</Menus.Button>
+
+
     <Modal.Open opens={"edit-form"}>
     <Menus.Button icon={<HiMiniPencilSquare/>} > Edit</Menus.Button>
-      </Modal.Open>
+     </Modal.Open>
+
     <Modal.Open opens={"delete-form"}>
     <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
-      </Modal.Open>
+    </Modal.Open>
+
     </Menus.List>
+
+
+
     <Modal.Window name={"edit-form"}>
       <EditCabinsForm cabinDefaultValues={cabin}  />
     </Modal.Window>
+
     <Modal.Window name={"delete-form"}>
     <ConfirmDelete resourceName={"Cabin"} disabled={isDeleting}  onConfirm={()=>deleteCabinFun(cabinId)}  />
     </Modal.Window>
+
     </Menus.Menu>
+
     </Modal>
     </div>
    </Table.Row>

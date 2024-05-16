@@ -1,15 +1,20 @@
 import { PAGE_SIZE } from "../utils/const";
 import supabase from "./supabase";
 
-export async function getCabins({page}) {
+export async function getCabins({page }) {
    let query = supabase.from('cabins').select('*' , {count: "exact"});
  
+
+
+
 
    if(page){
       const from = (page-1) * PAGE_SIZE
       const to = from + PAGE_SIZE -1
       query = query.range(from, to)
     }
+// Prefetching 
+
 
 
    const { data, error ,count} = await query;

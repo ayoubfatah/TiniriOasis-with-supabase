@@ -15,6 +15,7 @@ import Spinner from "../../ui/Spinner";
 import { useEffect, useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import useCheckIn from "./useCheckIn";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const Box = styled.div`
   /* Box */
@@ -84,7 +85,7 @@ if(isLoading || isChecking || isSettings) return <Spinner />
       <ButtonGroup>
         <Button disabled={!confirmedPaid} onClick={handleCheckin}>Check in booking #{bookingId}</Button>
         <Button variation="secondary" onClick={moveBack}>
-          Back
+          
         </Button>
       </ButtonGroup>
     </>

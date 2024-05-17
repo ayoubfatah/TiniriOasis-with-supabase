@@ -7,14 +7,15 @@ import Tag from "../../ui/Tag";
 import ButtonGroup from "../../ui/ButtonGroup";
 import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
-
+import Modal from "../../ui/Modal"
 import { useMoveBack } from "../../hooks/useMoveBack";
 import useBooking from "./useBooking";
 import Spinner from "../../ui/Spinner";
 import { HiArrowDownOnSquare, HiArrowUpOnSquare } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import useCheckOut from "../check-in-out/useCheckOut";
-
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import useDeleteBooking from "./useDeleteBooking"
 const HeadingGroup = styled.div`
   display: flex;
   gap: 2.4rem;
@@ -28,6 +29,8 @@ function BookingDetail() {
   const {mutate: checkOut , isLoading:isCheckingOut} = useCheckOut()
   const moveBack = useMoveBack();
   const navigate = useNavigate()
+  const {mutate , isDeleting} = useDeleteBooking()
+  
   function handleCheckedOut(){
     checkOut(bookingId)
    }
@@ -39,6 +42,8 @@ function BookingDetail() {
   if(isLoading ) return <Spinner />
   return (
     <>
+    <Modal>
+
       <Row type="horizontal">
         <HeadingGroup>
           <Heading as="h1">Booking {bookingId}</Heading>
@@ -50,15 +55,24 @@ function BookingDetail() {
       <BookingDataBox booking={booking} />
 
       <ButtonGroup>
-        <Button variation="secondary" onClick={moveBack}>
-          Back
-        </Button>
+        <Modal.Open opens="delete-booking">
+        <Button variation="danger">Delete Cabin</Button>
+        </Modal.Open>
+
 
         {status === "unconfirmed" && <Button onClick={()=> navigate(`/checkin/${bookingId}`)}>Check in
         </Button>}
         {status === "checked-in" && <Button icon={<HiArrowUpOnSquare/>} disabled={isCheckingOut} onClick={handleCheckedOut}>Check out</Button>}
+        <Button variation="secondary" onClick={moveBack}> Back </Button>
 
       </ButtonGroup>
+      <Modal.Window name="delete-booking">
+      <ConfirmDelete resourceName={"Booking"} disabled={isDeleting}  onConfirm={()=>  {
+        mutate(bookingId)
+        navigate("/bookings")
+      }  }  />
+      </Modal.Window>
+      </Modal>
     </>
   );
 }

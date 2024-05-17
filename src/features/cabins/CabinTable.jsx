@@ -52,7 +52,6 @@ export default function CabinTable() {
   }
  
   // 2) - Sort
-
   const sortedBy = searchParams.get("sortBy") || "StartDate-asc"
   const[field , direction] =  sortedBy.split("-")
   const modifier = direction ==="asc" ? 1 : -1

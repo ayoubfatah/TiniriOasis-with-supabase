@@ -39,11 +39,14 @@ const FilterButton = styled.button`
 export default function Filter({name , options}) {
   const  [searchParams, setSearchParams] = useSearchParams();
   const filterValue = searchParams.get(name) || options.at(0).value
+const page =Number(searchParams.get("page"))
 
     function handleClick(value){
+      if(page >1) searchParams.set("page", 1)
+
      searchParams.set(name, value)
      setSearchParams(searchParams)
-     if(searchParams.get("page")) searchParams.set("page" , 1)
+    
     }
 
   return (

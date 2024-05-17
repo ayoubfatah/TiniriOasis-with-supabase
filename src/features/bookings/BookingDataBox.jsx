@@ -115,9 +115,10 @@ function BookingDataBox({ booking }) {
     hasBreakfast,
     observations,
     isPaid,
-    guests: { fullName: guestName, email, country, countryFlag, nationalID },
+    guests: { fullName: guestName, email, country, countryFlag, NationalID },
     cabins: { name: cabinName },
   } = booking;
+
 
   return (
     <StyledBookingDataBox>
@@ -147,7 +148,7 @@ function BookingDataBox({ booking }) {
           <span>&bull;</span>
           <p>{email}</p>
           <span>&bull;</span>
-          <p>National ID {nationalID}</p>
+          <p>National ID {NationalID.toUpperCase()}</p>
         </Guest>
 
         {observations && (

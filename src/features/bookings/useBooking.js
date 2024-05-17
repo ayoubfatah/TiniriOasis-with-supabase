@@ -21,7 +21,7 @@ export default function useBooking() {
     const {bookingId} = useParams()
      
     const {isLoading , data:booking  , error } =  useQuery({
-        queryKey:["booking"],   // this will uniquely identify the data that we will query 
+        queryKey:["booking" , bookingId],   // this will uniquely identify the data that we will query 
        queryFn:()=> getBooking(bookingId),   //function that is responsible for fetching (function should return a promise)
         retry:false,
         })

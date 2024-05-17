@@ -40,7 +40,6 @@ export async function getCabins({page }) {
 
 
 export async function addCabin(cabinObj){
-   console.log(cabinObj);
    const imageName = `${Math.random()}-${cabinObj.image.name}`?.replaceAll("/" , "") // so supabase wont create folders cause if there is a / in the name it will create a folder
    const imagePath = cabinObj.image?.startsWith?.("https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/cabin-images/") ? cabinObj.image : `https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/cabin-images/${imageName}`
       // https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg

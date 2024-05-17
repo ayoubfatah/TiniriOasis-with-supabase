@@ -73,9 +73,9 @@ function UpdateSettingsForm() {
         <label htmlFor="max-guests">Maximum guests/booking</label>
         <Input type='number' id='max-guests'  defaultValue={maxNumOfGuestsPerBooking}  onBlur={(e)=>handleUpdate(+e.target.value , "maxNumOfGuestsPerBooking")} disabled={isUpdating} />
       </FormRow>
-      <FormRow label='Breakfast price'>
-        <label  htmlFor="breakfast-price" >Breakfast price</label>
-        <Input type='number' id='breakfast-price'   defaultValue={breakFastPrice} onBlur={(e)=>handleUpdate(+e.target.value , "breakFastPrice ")} disabled={isUpdating}  />
+      <FormRow label='BreakfastPrice'>
+        <label  htmlFor="breakfastPrice" >Breakfast price</label>
+        <Input type='number' id='breakfastPrice'   defaultValue={breakFastPrice} onBlur={(e)=>handleUpdate(+e.target.value , "breakFastPrice")} disabled={isUpdating}  />
       </FormRow>
     </Form>
   );

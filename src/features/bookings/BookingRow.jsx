@@ -7,8 +7,9 @@ import Modal from "../../ui/Modal";
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import Menus from "../../ui/Menus";
-import { HiArrowDownOnSquare, HiEye, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import useCheckOut from "../check-in-out/useCheckOut";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -57,7 +58,15 @@ function BookingRow({
     "checked-out": "silver",
   };
  const navigate = useNavigate()
-  return (
+
+ 
+ const {mutate: checkOut , isLoading:isCheckingOut} = useCheckOut()
+
+ function handleCheckedOut(){
+  checkOut(bookingId)
+ }
+
+   return (
 
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
@@ -89,8 +98,8 @@ function BookingRow({
     <Menus.Toggle  id={bookingId}/>
      <Menus.List id={bookingId}>
      <Menus.Button icon={<HiEye />} onClick={()=> navigate(`/bookings/${bookingId}`)} >See details</Menus.Button>
-     {status === "unconfirmed" && <Menus.Button icon={<HiArrowDownOnSquare/>} onClick={()=> navigate(`/checkin/${bookingId}`)}>Check in</Menus.Button>
-}
+     {status === "unconfirmed" && <Menus.Button icon={<HiArrowDownOnSquare/>} onClick={()=> navigate(`/checkin/${bookingId}`)}>Check in</Menus.Button>}
+     {status === "checked-in" && <Menus.Button icon={<HiArrowUpOnSquare/>} disabled={isCheckingOut} onClick={handleCheckedOut}>Check out</Menus.Button>}
      <Menus.Button icon={<HiTrash/>}>Delete Booking </Menus.Button>
      </Menus.List>
 

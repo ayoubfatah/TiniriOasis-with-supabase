@@ -11,7 +11,7 @@ export function useLogin() {
         onSuccess: (result) => {
             if (result.success) {
                 queryClient.setDefaultOptions(["user"] , result?.data)
-                navigate("/dashboard");
+                navigate("/dashboard" ,{replace: true});
             } else {
                 toast.error("Provided email or password are incorrect");
             }
@@ -21,6 +21,6 @@ export function useLogin() {
             toast.error("The Provided email or password are  incorrect ");
         }
     });
-
+    
     return { mutate, isLoading };
 }

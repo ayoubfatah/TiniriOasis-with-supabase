@@ -8,5 +8,6 @@ export function useUser(){
     queryFn: getCurrentUser
   })
 
-  return{user , isLoading , isAuthenticated : user?.role ==="isAuthenticated"}
+  
+  return{user , isLoading , isAuthenticated : user?.role ==="authenticated"}
 }

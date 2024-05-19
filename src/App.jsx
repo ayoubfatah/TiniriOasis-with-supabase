@@ -41,7 +41,7 @@ function App() {
     <Route  element={<ProtectedRoute><AppLayout/></ProtectedRoute>} >  
     <Route  index element={<Navigate replace to="/dashboard"/>}  />
     <Route path="/dashboard" element={<Dashboard/>}  />
-    <Route path="/bookings" element={<Bookings/>}></Route>
+    <Route path="/bookings" element={<Bookings/>}></Route> 
     <Route path="/bookings/:bookingId" element={<Booking/>}/>
     <Route path="/cabins" element={<Cabins/>}  />
     <Route path="/checkin/:bookingId" element={<CheckIn/>}  />

@@ -21,17 +21,18 @@ const Avatar = styled.img`
   outline: 2px solid var(--color-grey-100);
 `;
 
-
-
 export default function UserAvatar() {
-  const avatarImg = "https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg"
+
   const {user} = useUser()
   const {fullName , avatar} = user.user_metadata
-  console.log(user);
+
   return (
   
   <StyledUserAvatar>
-    <Avatar  src={Avatar } alt={`avatar of ${fullName}`} /> 
+<Avatar
+        src={avatar || "https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/avatars/Ellipse%201.png"}
+        alt={`Avatar of ${fullName}`}
+      />
     <span>{fullName}</span>
   </StyledUserAvatar>
   )

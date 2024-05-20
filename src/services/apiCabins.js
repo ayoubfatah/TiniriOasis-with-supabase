@@ -54,7 +54,7 @@ export async function addCabin(cabinObj){
             throw new Error("cabins couldn't be added")
          }   
    // 2 Upload the image 
-   console.log(cabinObj.image?.startsWith?.("https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/cabin-images/"));
+
 if(cabinObj.image?.startsWith?.("https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/cabin-images/"))return
        const { error: storageError } = await supabase.storage
        .from ( 'cabin-images')

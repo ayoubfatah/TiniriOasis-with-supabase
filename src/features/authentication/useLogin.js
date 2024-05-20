@@ -12,6 +12,8 @@ export function useLogin() {
             if (result.success) {
                 queryClient.setQueriesData(["user"] , result?.data.user)
                 navigate("/dashboard" ,{replace: true});
+                console.log(result);
+
             } else {
                 toast.error("Provided email or password are incorrect");
             }

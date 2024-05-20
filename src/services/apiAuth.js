@@ -37,3 +37,26 @@ export  async function getCurrentUser(){
      const {error} = await supabase.auth.signOut()
     if(error) throw new Error(error.message)
  }
+
+
+ export async function signup({fullName , email , password }){
+    try {
+        let { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options:{
+                data:{
+                    fullName,
+                    avatar: "",
+                },
+            }
+        });
+      
+        if (error) {
+          throw new Error("Something wrong happened while trying to sign up ");
+        }
+      } catch (error) {
+        console.error("Sign-up error:", error.message);
+      }
+      
+ }

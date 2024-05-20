@@ -3,15 +3,21 @@ import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow.jsx";
 import Input from "../../ui/Input";
+import Spinner from "../../ui/Spinner";
+import { useSignUp } from "./useSignUp.js";
 
 // Email regex: /\S+@\S+\.\S+/
 
 function SignupForm() {
-   const {register , formState , getValues , handleSubmit}= useForm()
+   const {register , formState , getValues , reset , handleSubmit}= useForm()
    const {errors} = formState
-   function onSubmit(data){
-    console.log(data);
+   const {signup , isLoading} = useSignUp()
+   function onSubmit({fullName , email , password}){
+      signup({fullName ,email , password},{onSettled: reset()})
+
+    
    }
+   if(isLoading) return <Spinner />
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Full name" error={errors?.fullName?.message}>

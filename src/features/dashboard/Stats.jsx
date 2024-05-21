@@ -13,14 +13,14 @@ export default function Stats({bookings , confirmedStays , numDays , cabinCount}
     const totalCheckins = confirmedStays.length
     //4 OCCUPANCY rate :
     // num checked in nights / all available nights (num days* num cabins)
-    // const occupation = confirmedStays.reduce((acc , curr)=>  acc + curr.numNights,0) / (numDays * cabinCount)
-    const occupation = "100%"
+    const occupation = confirmedStays.reduce((acc , curr)=>  acc + curr.numNights,0) / (numDays * cabinCount)
+    const occupationPercentage = `${Math.round(occupation) * 100}% `
   return (
     <>
     <Stat icon={<HiOutlineBriefcase />} title={"bookings"} value={numOfBookings} color={"blue"} />
     <Stat icon={<HiOutlineBanknotes />} title={"Sales"} value={formatCurrency(totalSales)} color={"green"} />
     <Stat icon={<HiOutlineCalendarDays/>} title={"Check ins "} value={totalCheckins} color={"indigo"} />
-    <Stat icon={<HiOutlineChartBar />} title={"OCCUPANCY RATE"} value={occupation} color={"yellow"} />
+    <Stat icon={<HiOutlineChartBar />} title={"OCCUPANCY RATE"} value={occupationPercentage} color={"yellow"} />
     </>
   )
 }

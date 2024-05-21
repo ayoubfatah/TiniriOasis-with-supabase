@@ -26,7 +26,15 @@ export async function getCabins({page }) {
    return {data , count};
  }
 
+ export async function getAllCabins(){
 
+   const { data, error } = await supabase.from('cabins').select('*')
+   if (error) {
+      console.error(error);
+      throw new Error("Cabins couldn't be loaded");
+    }
+    return {data , error};
+ }
 
    export async function deleteCabin(cabinId){
    const { data, error } = await supabase

@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import DashboardBox from "./DashboardBox";
+import Heading from "../../ui/Heading";
+import { AreaChart  ,Area, CartesianGrid, Tooltip, XAxis, YAxis, ResponsiveContainer} from "recharts";
+import { useDarkMode } from "../../contextApi/DarkModeContext";
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -43,8 +46,12 @@ const fakeData = [
   { label: "Feb 06", totalSales: 1450, extrasSales: 400 },
 ];
 
-const isDarkMode = true;
-const colors = isDarkMode
+
+
+    
+    export default function SalesChart({bookings , numDays}) {
+      const {isDarkMode} = useDarkMode();
+      const colors = isDarkMode
   ? {
       totalSales: { stroke: "#4f46e5", fill: "#4f46e5" },
       extrasSales: { stroke: "#22c55e", fill: "#22c55e" },
@@ -57,3 +64,40 @@ const colors = isDarkMode
       text: "#374151",
       background: "#fff",
     };
+
+
+      return (
+       <StyledSalesChart >
+        <Heading as="h2">Sales</Heading>
+
+
+        <ResponsiveContainer   height={300} width="100%">
+        <AreaChart data={fakeData}>
+          <XAxis dataKey="label" tick={{fill : colors.text}} tickLine={{stroke: colors.text}} />
+          <YAxis unit="$" tick={{fill : colors.text}} tickLine={{stroke: colors.text}} />
+        <CartesianGrid  strokeDasharray={1}/>
+        <Tooltip contentStyle={{backgroundColor: colors.background}} />
+          <Area 
+          dataKey="totalSales"
+          type= 'blues'
+          stroke={colors.totalSales.stroke}
+          fill={colors.totalSales.fill}
+          strokeWidth={2}
+          name="Total Sales"
+          unit="$"
+              />
+          <Area 
+          dataKey="extrasSales"
+          type= 'blues'
+          stroke={colors.extrasSales.stroke}
+          fill={colors.extrasSales.fill}
+          strokeWidth={2}
+          name="Extra Sales"
+          unit="$"
+              />
+        </AreaChart>
+        </ResponsiveContainer >
+       </StyledSalesChart>
+      )
+    }
+    

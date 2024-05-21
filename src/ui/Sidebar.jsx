@@ -1,6 +1,7 @@
 import styled from "styled-components"
 
 import MainNav from "../ui/MainNav"
+import Logo from "../ui/Logo"
 const StyledSideBar = styled.aside`
 
 background-color: var(--color-grey-0) ;
@@ -14,7 +15,7 @@ border-right: 1px solid var(--color-grey-100) ;
 export default function Sidebar() {
   return (
     <StyledSideBar>
-        <h1>Tiniri Oasis</h1>
+        <Logo />
         <MainNav />
     </StyledSideBar>
   )

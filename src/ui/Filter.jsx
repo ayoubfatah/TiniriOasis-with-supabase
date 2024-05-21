@@ -51,7 +51,7 @@ const page =Number(searchParams.get("page"))
 
   return (
      <StyledFilter>
-     {options.map( option =>  <FilterButton active={filterValue === option.value ? 1  : "" } disabled={filterValue === option.value} key={options.value} onClick={()=>handleClick(option.value)}>{option.name}</FilterButton>)}
+     {options.map( (option , i) =>  <FilterButton active={filterValue === option.value ? 1  : "" } disabled={filterValue === option.value} key={options.value + `${i}`} onClick={()=>handleClick(option.value)}>{option.name}</FilterButton>)}
      </StyledFilter>
   )
 }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useDarkMode } from "../contextApi/DarkModeContext";
 
 const StyledLogo = styled.div`
   text-align: center;
@@ -9,10 +10,19 @@ const Img = styled.img`
   width: auto;
 `;
 
+const BlackTitle = styled.h1`
+  color:black;
+`
+const WhiteTitle = styled.h1`
+  color:white;
+`
+
 function Logo() {
+  const {isDarkMode} =  useDarkMode()
+
   return (
     <StyledLogo>
-      <Img src="/logo-light.png" alt="Logo" />
+      {isDarkMode ? <WhiteTitle>Tiniri Oasis</WhiteTitle> : <BlackTitle>Tiniri Oasis</BlackTitle>}
     </StyledLogo>
   );
 }

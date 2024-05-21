@@ -30,7 +30,6 @@ export default function useBookings() {
         const {count , data:bookings} = data ?? {}
 
         const pageCount = Math.ceil(count/PAGE_SIZE)
-        console.log(pageCount);
       if(page <pageCount){
         queryClient.prefetchQuery({
             queryKey:["bookings", filter , sortBy ,page],   // this will uniquely identify the data that we will query 

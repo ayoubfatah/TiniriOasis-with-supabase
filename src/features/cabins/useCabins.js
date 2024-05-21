@@ -25,5 +25,5 @@ export default function useCabins() {
             queryKey:["cabins" , page -1],   // this will uniquely identify the data that we will query 
             queryFn:()=>getCabins({page: page - 1 }) })
     }   
-        return {isLoading , count, cabinData , error}
+        return {isLoading , count, cabinData ,data , error}
 }

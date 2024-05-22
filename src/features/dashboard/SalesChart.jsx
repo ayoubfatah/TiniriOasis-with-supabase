@@ -4,6 +4,7 @@ import Heading from "../../ui/Heading";
 import { AreaChart  ,Area, CartesianGrid, Tooltip, XAxis, YAxis, ResponsiveContainer} from "recharts";
 import { useDarkMode } from "../../contextApi/DarkModeContext";
 import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
+import { tr } from "date-fns/locale";
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -52,12 +53,13 @@ const fakeData = [
     
     export default function SalesChart({bookings , numDays}) {
       const {isDarkMode} = useDarkMode();
-
+    // getting last 7 dyas last 15 30 days
       const allDates =eachDayOfInterval({
-        start: subDays( new Date(), numDays - 1 ),
+        start: subDays( new Date(), numDays -1),
         end: new Date()
       })
 
+  
       const data =  allDates.map(date =>{
         return{
           label: format(date , "MMM dd"),
@@ -84,33 +86,37 @@ const fakeData = [
 
       return (
        <StyledSalesChart >
-        <Heading as="h2">Sales</Heading>
+        <Heading as="h3">Sales  from {format(allDates.at(0), "MMM dd yyyy")}  - {format(allDates.at(-1), "MMMM dd yyyy")} </Heading>
 
 
         <ResponsiveContainer   height={300} width="100%">
-        <AreaChart data={data}>
-          <XAxis dataKey="label" tick={{fill : colors.text}} tickLine={{stroke: colors.text}} />
-          <YAxis unit="$" tick={{fill : colors.text}} tickLine={{stroke: colors.text}} />
-        <CartesianGrid  strokeDasharray={1}/>
-        <Tooltip contentStyle={{backgroundColor: colors.background}} />
+        <AreaChart data={fakeData}>
+          <XAxis  dataKey="label" tick={{fill : colors.text}} tickLine={{stroke: colors.text}} />
+          <YAxis   unit={"$"} tick={{fill : colors.text}} tickLine={{stroke: colors.text}} />
+        <CartesianGrid  strokeDasharray={4}/>
+        <Tooltip   contentStyle={{backgroundColor: colors.background}} />
+        
           <Area 
+           dot={{ stroke: colors.totalSales.stroke , strokeWidth: 2 }}
           dataKey="totalSales"
-          type= 'blues'
+          type= 'natural'
           stroke={colors.totalSales.stroke}
           fill={colors.totalSales.fill}
-          strokeWidth={2}
+          strokeWidth={1}
           name="Total Sales"
           unit="$"
               />
           <Area 
+          dot={{ stroke: colors.totalSales.stroke , strokeWidth: 2 }}
           dataKey="extrasSales"
-          type= 'blues'
+          type= 'natural'
           stroke={colors.extrasSales.stroke}
           fill={colors.extrasSales.fill}
           strokeWidth={2}
           name="Extra Sales"
           unit="$"
               />
+        
         </AreaChart>
         </ResponsiveContainer >
        </StyledSalesChart>

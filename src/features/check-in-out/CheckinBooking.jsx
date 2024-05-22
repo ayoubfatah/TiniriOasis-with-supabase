@@ -85,7 +85,7 @@ if(isLoading || isChecking || isSettings) return <Spinner />
       <ButtonGroup>
         <Button disabled={!confirmedPaid} onClick={handleCheckin}>Check in booking #{bookingId}</Button>
         <Button variation="secondary" onClick={moveBack}>
-          
+           Back
         </Button>
       </ButtonGroup>
     </>

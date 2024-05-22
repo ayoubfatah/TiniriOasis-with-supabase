@@ -139,6 +139,7 @@ function prepareData(startData, stays) {
 
 export default function DurationChart({confirmedStays}) {
   const {isDarkMode} = useDarkMode()
+  console.log(confirmedStays);
   const startData = isDarkMode ? startDataDark : startDataLight
   const data = prepareData(startData,confirmedStays)
   return (

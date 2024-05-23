@@ -40,6 +40,7 @@ export default function ErrorFallback({error}) {
     <StyledErrorFallback>
       <Box>
         <Heading as="h1">Something went wrong </Heading>
+        <p>{error}</p>
       </Box>
     </StyledErrorFallback>
   )

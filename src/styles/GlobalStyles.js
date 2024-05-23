@@ -81,14 +81,15 @@ const GlobalStyles = createGlobalStyle`
   }
   
   /* Indigo */
-  --color-brand-50: #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-200: #c7d2fe;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
-  --color-brand-800: #3730a3;
-  --color-brand-900: #312e81;
+  --color-brand-50: #fff7e6;
+--color-brand-100: #ffe8cc;
+--color-brand-200: #ffd1a3;
+--color-brand-500: #ff8c00;
+--color-brand-600: #ff7a00;
+--color-brand-700: #cc6300;
+--color-brand-800: #994c00;
+--color-brand-900: #663300;
+
   
   --border-radius-tiny: 3px;
   --border-radius-sm: 5px;

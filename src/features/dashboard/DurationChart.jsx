@@ -117,6 +117,9 @@ function prepareData(startData, stays) {
   }
 
 
+
+
+
   const data = stays
     .reduce((arr, cur) => {
       const num = cur.numNights;

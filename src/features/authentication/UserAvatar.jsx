@@ -22,18 +22,19 @@ const Avatar = styled.img`
 `;
 
 export default function UserAvatar() {
-
-  const {user} = useUser()
-  const {fullName , avatar} = user.user_metadata
+  const { user } = useUser();
+  const { fullName, avatar } = user.user_metadata;
 
   return (
-  
-  <StyledUserAvatar>
-<Avatar
-        src={avatar || "https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/avatars/Ellipse%201.png"}
+    <StyledUserAvatar>
+      <Avatar
+        src={
+          avatar ||
+          "https://abpbmrevqhrumbygedav.supabase.co/storage/v1/object/public/avatars/Ellipse%201.png"
+        }
         alt={`Avatar of ${fullName}`}
       />
-    <span>{fullName}</span>
-  </StyledUserAvatar>
-  )
+      <span>{fullName}</span>
+    </StyledUserAvatar>
+  );
 }
